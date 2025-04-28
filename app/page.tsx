@@ -12,7 +12,7 @@ import QuickNote from "./components/Dashboard/QuickNote";
 const pipelineStages = [
   { name: "Leads", count: 5, color: "sky" },
   { name: "Devis", count: 3, color: "amber" },
-  { name: "En cours", count: 4, color: "violet" },
+  { name: "doing", count: 4, color: "violet" },
   { name: "Payé", count: 3, color: "emerald" },
 ];
 

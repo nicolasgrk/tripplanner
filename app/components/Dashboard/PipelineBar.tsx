@@ -19,7 +19,7 @@ interface PipelineBarProps {
 const defaultStages: PipelineStage[] = [
   { name: "Leads", count: 10, color: "sky" },
   { name: "Devis", count: 3, color: "violet" },
-  { name: "En cours", count: 4, color: "amber" },
+  { name: "doing", count: 4, color: "amber" },
   { name: "Payé", count: 10, color: "emerald" },
 ];
 
