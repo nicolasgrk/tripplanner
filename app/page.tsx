@@ -1,65 +1,61 @@
-"use client";
+'use client'
 
-import VisionHeader from "./components/Dashboard/VisionHeader";
-import FocusCard from "./components/Dashboard/FocusCard";
-import PipelineBar from "./components/Dashboard/PipelineBar";
-import SkillsRadar from "./components/Dashboard/SkillsRadar";
-import RecentSuccess from "./components/Dashboard/RecentSuccess";
-import InboxZero from "./components/Dashboard/InboxZero";
-import QuickNote from "./components/Dashboard/QuickNote";
-
-// 📝 DUMMY DATA — remplace-les par tes hooks Prisma / fetch API
-const pipelineStages = [
-  { name: "Leads", count: 5, color: "sky" },
-  { name: "Devis", count: 3, color: "amber" },
-  { name: "doing", count: 4, color: "violet" },
-  { name: "Payé", count: 3, color: "emerald" },
-];
-
-const radarData = [
-  { category: "Design", value: 70 },
-  { category: "Dev", value: 80 },
-  { category: "Admin", value: 40 },
-  { category: "Com'", value: 60 },
-  { category: "Prospect", value: 55 },
-];
-
-const achievements = [
-  { id: 1, message: "1 500 € encaissés cette semaine", icon: "DollarSign" },
-  { id: 2, message: "Projet GreenTech livré hier", icon: "Rocket" },
-];
-
-const notifications = [
-  { id: 1, type: "invoice", content: "Facture #F-015 payée par ACME", date: "il y a 1 h" },
-  { id: 2, type: "message", content: "Nouveau message de Marie P.", date: "il y a 3 h" },
-  { id: 3, type: "document", content: "Devis signé par BetaCorp", date: "hier" },
-];
+import { Hero } from '@/components/Hero'
+import { Countdown } from '@/components/Countdown'
+import { GlassButton } from '@/components/GlassButton'
+import { quickLinks, essentials, departureDate } from '@/data/home'
+import { CurrencyWidget } from '@/components/CurrencyWidget'
+import { PhraseOfDay }   from '@/components/PhraseOfDay'
 
 export default function HomeDashboard() {
   return (
+    <main className="mx-auto flex max-w-sm flex-col gap-8 px-4 pb-32">
+      <Hero />
 
-    <div className="space-y-8">
-      <div>
-        {/* 1. Header */}
-        <VisionHeader
-          userName="Nicolas"
-          dailyObjective="3 relances + 1 signature aujourd’hui"
-        />
+      {/* Compteur J-X */}
+      <Countdown dateISO={departureDate} />
+
+      {/* Quick actions */}
+      <div className="flex justify-between pt-2">
+        {quickLinks.map(l => (
+          <GlassButton key={l.href} href={l.href} emoji={l.emoji} label={l.label} />
+        ))}
       </div>
 
-      {/* 2. Row: Focus, Pipeline, Radar */}
-      <section className="grid lg:grid-cols-3 gap-6">
-        <FocusCard />
-        <PipelineBar stages={pipelineStages} />
-        <SkillsRadar data={radarData} />
+      {/* Essentiels */}
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold">Essentiels avant le départ</h2>
+        {essentials.map(e => (
+          <div
+            key={e.id}
+            className="backdrop-blur flex gap-3 rounded-2xl bg-white/10 p-4"
+          >
+            <span className="text-2xl">{e.emoji}</span>
+            <div>
+              <h3 className="font-medium">{e.title}</h3>
+              <p className="text-sm text-white/80">{e.desc}</p>
+            </div>
+          </div>
+        ))}
       </section>
 
-            {/* 3. Row: Succès, Inbox, Notes */}
-      <section className="grid lg:grid-cols-3 gap-6">
-        <RecentSuccess achievements={achievements} />
-        <InboxZero notifications={notifications} />
-        <QuickNote />
+      {/* Mini-timeline jours */}
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">Aperçu de l’itinéraire</h2>
+        <div className="flex gap-3 overflow-x-auto pb-2">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <GlassButton
+              key={i}
+              href={`/jours/${i + 1}`}
+              emoji="🗓️"
+              label={`Jour ${i + 1}`}
+            />
+          ))}
+        </div>
       </section>
-    </div>
-  );
+
+      <CurrencyWidget />
+      <PhraseOfDay />
+    </main>
+  )
 }
