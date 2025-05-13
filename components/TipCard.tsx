@@ -26,7 +26,7 @@ export function TipCard({ tip }: { tip: Tip }) {
       className="
         flex flex-col gap-3
         rounded-[1.5rem] border border-white/20
-        bg-[rgba(255,255,255,0.12)] p-4 backdrop-blur-lg
+        bg-[rgba(255,255,255,0.12)] p-4
         shadow-[0_4px_24px_rgba(0,0,0,0.35)]
       "
     >

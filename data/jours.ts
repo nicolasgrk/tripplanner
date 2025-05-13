@@ -36,7 +36,7 @@ export const days: Record<string, DayData> = {
         title: 'Matin – Arrivée & premiers pas à Shinjuku',
         description:
           'Check-in (ou simple dépôt des bagages) puis balade sous les néons de Shinjuku, passage par le Tokyo Metropolitan Government Building pour une vue gratuite sur la ville.',
-        image: '/images/jours/narita.jpg',
+        image: '/images/jours/narrita.jpg',
         mapUrl: '',
         foodDetails: {
           text: 'Snack express au 7-Eleven : onigiri + sandwich tamago.',
@@ -436,7 +436,7 @@ export const days: Record<string, DayData> = {
         title: 'Après-midi – Départ',
         description:
           'Train ou limousine-bus vers Haneda/Narita, duty-free et embarquement.',
-        image: '/images/jours/narita.jpg',
+        image: '/images/jours/narrita.jpg',
         mapUrl: '',
         foodDetails: {
           text: 'Ramen Street (Tokyo Station) si le timing le permet.',

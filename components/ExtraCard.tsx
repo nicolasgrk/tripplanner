@@ -44,7 +44,7 @@ export function ExtraCard({ place }: { place: ExtraPlace }) {
         {/* save */}
         <button
           onClick={() => toggle(place.id)}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20  hover:bg-white/30"
         >
           {isSaved ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
         </button>

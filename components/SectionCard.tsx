@@ -44,7 +44,7 @@ export function SectionCard({ section }: { section: Section }) {
           <button
             onClick={() => toggle('food')}
             className="flex h-10 w-10 items-center justify-center rounded-full
-                       bg-white/20 backdrop-blur-sm hover:bg-white/30">
+                       bg-white/20  hover:bg-white/30">
             <Utensils size={18} />
           </button>
         )}
@@ -54,7 +54,7 @@ export function SectionCard({ section }: { section: Section }) {
           <button
             onClick={() => toggle('info')}
             className="flex h-10 w-10 items-center justify-center rounded-full
-                       bg-white/20 backdrop-blur-sm hover:bg-white/30">
+                       bg-white/20  hover:bg-white/30">
             <Info size={18} />
           </button>
         )}
