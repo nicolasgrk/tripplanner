@@ -1,37 +1,44 @@
-// hooks/useSteps.ts
+/* hooks/useSteps.ts */
+'use client'
 import { useEffect, useState } from 'react'
 
-type StepLog = Record<string, number> // "2025-05-03": 7423
+type StepLog = Record<string, number> // p. ex. { "2025-05-03": 7423 }
 
 export function useSteps(dateKey: string) {
-  const [steps, setSteps] = useState(() => {
-    const saved: StepLog = JSON.parse(localStorage.getItem('steps') || '{}')
-    return saved[dateKey] ?? 0
-  })
+  const [steps, setSteps] = useState(0)
 
-  // --- persistence localStorage
+  // Charger la valeur enregistrée
   useEffect(() => {
-    const saved: StepLog = JSON.parse(localStorage.getItem('steps') || '{}')
-    saved[dateKey] = steps
-    localStorage.setItem('steps', JSON.stringify(saved))
+    try {
+      const saved: StepLog = JSON.parse(localStorage.getItem('steps') || '{}')
+      setSteps(saved[dateKey] ?? 0)
+    } catch {}
+  }, [dateKey])
+
+  // Sauvegarder à chaque modification
+  useEffect(() => {
+    try {
+      const saved: StepLog = JSON.parse(localStorage.getItem('steps') || '{}')
+      saved[dateKey] = steps
+      localStorage.setItem('steps', JSON.stringify(saved))
+    } catch {}
   }, [steps, dateKey])
 
-  // --- tentative Bluetooth (optionnel)
+  /* ---- Bluetooth facultatif (inchangé) ---- */
   const connectBluetooth = async () => {
     try {
-      const device = await navigator.bluetooth.requestDevice({
-        filters: [{ services: ['fitness_machine'] }], // 0x1826
+      const device   = await navigator.bluetooth.requestDevice({
+        filters: [{ services: ['fitness_machine'] }],
         optionalServices: ['fitness_machine'],
       })
-      const server     = await device.gatt?.connect()
-      const service    = await server?.getPrimaryService('fitness_machine')
-      const stepChar   = await service?.getCharacteristic(0x2AC4) // Step Count
-      const value      = await stepChar?.readValue()
-      const newSteps   = value?.getUint32(0, /*littleEndian=*/true) ?? 0
-      setSteps(newSteps)
+      const server   = await device.gatt?.connect()
+      const service  = await server?.getPrimaryService('fitness_machine')
+      const stepChar = await service?.getCharacteristic(0x2ac4)
+      const value    = await stepChar?.readValue()
+      setSteps(value?.getUint32(0, true) ?? 0)
     } catch (err) {
       console.error('BT error', err)
-      alert('Bluetooth unavailable sur cet appareil.')
+      alert('Bluetooth indisponible sur cet appareil.')
     }
   }
 

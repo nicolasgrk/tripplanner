@@ -1,12 +1,15 @@
-// app/jours/layout.tsx
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { DaySwitcher } from '@/components/DaySwitcher'
 
-export default function JoursLayout({ children }: { children: ReactNode }) {
+interface Props {
+  children: ReactNode
+}
+
+export default function JoursLayout({ children }: Props) {
   return (
     <>
-      {children}          {/* contenu spécifique au jour */}
-      <DaySwitcher />     {/* flèches <-  -> centrées verticalement */}
+      {children}
+      <DaySwitcher />
     </>
   )
 }
